@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">WearFiles</string>
+    <string name="permission_alert">"עקב מגבלות של פלטפורמת Wear OS, האפליקציה אינה יכולה לקבל הרשאות גישה לקבצים.\nיש להעניק הרשאות אלו באופן ידני.\n\n1. התחברו לשעון באמצעות ADB\n2. הריצו את הפקודה הבאה:\nadb shell appops set --uid com.dertefter.wearfiles MANAGE_EXTERNAL_STORAGE allow\n3. הפעילו מחדש את האפליקציה\n\nאני מצטער מאוד על כך שעליכם להתמודד עם אי הנוחות הזו, אך זו הדרך היחידה לגרום לאפליקציה לעבוד."</string>
+    <string name="grant_permissions">הענק הרשאות</string>
+    <string name="back">חזור</string>
+    <string name="delete">מחק</string>
+    <string name="cut">גזור</string>
+    <string name="copy">העתק</string>
+    <string name="move_here">העבר</string>
+    <string name="paste">הדבק</string>
+    <string name="new_folder">צור תיקיה חדשה כאן</string>
+    <string name="create_folder">צור תיקיה חדשה</string>
+    <string name="folder_name">שם תיקיה</string>
+    <string name="rename">שנה שם</string>
+    <string name="no_program_to_open">אין אפליקציה לפתיחת סוג קובץ זה</string>
+    <string name="opening_error">שגיאה בפתיחת הקובץ</string>
+    <string name="storage">אחסון</string>
+    <string name="settings">הגדרות</string>
+    <string name="override_file">הקובץ הזה כבר קיים.\nלהחליף?</string>
+    <string name="open">פתח</string>
+    <string name="are_you_sure">אתה בטוח?</string>
+    <string name="try_get_permissions">נסה להעניק הרשאות דרך המכשיר</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+
+</resources>
