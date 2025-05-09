@@ -104,8 +104,7 @@ class FileActivity : AppCompatActivity() {
             try {
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this, "Нечем открыть", Toast.LENGTH_SHORT).show()
-            }
+                Toast.makeText(this, getString(R.string.no_program_to_open), Toast.LENGTH_SHORT).show()            }
         }
     }
 
