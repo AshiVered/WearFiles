@@ -3,5 +3,5 @@
     <dimen name="top_padding">48dp</dimen>
     <dimen name="splash_screen_icon_size">48dp</dimen>
     <dimen name="corner_radius">24dp</dimen>
-    <dimen name="spacing">4dp</dimen>
+    <dimen name="spacing">6dp</dimen>
 </resources>

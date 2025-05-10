@@ -21,18 +21,29 @@ class FileAdapter(
     private val isBackEnabled: Boolean = false,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var isLoading: Boolean = false
+
     companion object {
         private const val VIEW_TYPE_FILE = 0
         private const val VIEW_TYPE_FOOTER = 1
         private const val VIEW_TYPE_HEADER = 2
+        private const val VIEW_TYPE_PLACEHOLDER = 3
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> VIEW_TYPE_HEADER
-            in 1..files.size -> VIEW_TYPE_FILE
+            in 1..(if (isLoading) 6 else files.size) -> {
+                if (isLoading) VIEW_TYPE_PLACEHOLDER else VIEW_TYPE_FILE
+            }
             else -> VIEW_TYPE_FOOTER
         }
+    }
+
+
+    fun setLoading() {
+        isLoading = true
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -52,6 +63,12 @@ class FileAdapter(
                     .inflate(R.layout.path_view, parent, false)
                 HeaderViewHolder(view)
             }
+            VIEW_TYPE_PLACEHOLDER -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.file_item, parent, false)
+                PlaceholderViewHolder(view)
+            }
+
             else -> throw IllegalArgumentException("Unknown view type: $viewType")
         }
     }
@@ -68,12 +85,20 @@ class FileAdapter(
             is HeaderViewHolder -> {
                 holder.bind(currentPath)
             }
+
         }
     }
 
-    override fun getItemCount(): Int = files.size + 2 // +1 for header, +1 for footer
+    override fun getItemCount(): Int {
+        return if (isLoading) {
+            1 + 6 + 1
+        } else {
+            1 + files.size + 1
+        }
+    }
 
     fun updateFiles(newFiles: List<File>, newPath: String = currentPath) {
+        isLoading = false
         files = newFiles
         currentPath = newPath
         notifyDataSetChanged()
@@ -82,10 +107,6 @@ class FileAdapter(
     class FileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val name: TextView = itemView.findViewById(R.id.item_name)
         private val icon: ImageView = itemView.findViewById(R.id.item_icon)
-
-
-
-
 
         fun bind(file: File, onFileClick: (File) -> Unit, onFooterClick: (String) -> Unit) {
             name.text = file.name
@@ -101,6 +122,9 @@ class FileAdapter(
             }
         }
     }
+
+    class PlaceholderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
 
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val button_more: Button = itemView.findViewById(R.id.more_button)

@@ -22,7 +22,6 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
-            app:srcCompat="@drawable/folder"
             app:tint="?attr/colorOnSurface" />
 
         <TextView
@@ -34,7 +33,6 @@
             android:fontFamily="sans-serif-medium"
             android:maxLength="30"
             android:maxLines="1"
-            android:text="ddsvdkvdkvdkvdskvdsk"
             android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
     </LinearLayout>

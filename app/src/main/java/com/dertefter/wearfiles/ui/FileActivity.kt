@@ -55,9 +55,6 @@ class FileActivity : AppCompatActivity() {
             permissionAlert.visibility = View.GONE
         }
 
-
-
-
         viewModel = ViewModelProvider(this).get(FileViewModel::class.java)
 
         adapter = FileAdapter(
@@ -72,6 +69,8 @@ class FileActivity : AppCompatActivity() {
             isBackEnabled = viewModel.currentPath.value != Environment.getExternalStorageDirectory().path
         )
         recyclerView.adapter = adapter
+
+        adapter.setLoading()
 
         viewModel.files.observe(this) { files ->
             adapter.updateFiles(files)

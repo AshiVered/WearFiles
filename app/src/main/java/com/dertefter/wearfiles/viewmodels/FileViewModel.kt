@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dertefter.wearfiles.R
 import com.dertefter.wearfiles.common.Utils
 import com.dertefter.wearfiles.model.Action
 import com.dertefter.wearfiles.model.ActionType
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
 class FileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
@@ -25,24 +28,29 @@ class FileViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     }
 
     fun loadFiles(path: String) {
-        val directory = File(path)
 
-        if (!directory.exists()) {
-            loadFiles(directory.parent ?: Environment.getExternalStorageDirectory().path)
-            return
+        viewModelScope.launch {
+            val directory = File(path)
+
+            if (!directory.exists()) {
+                loadFiles(directory.parent ?: Environment.getExternalStorageDirectory().path)
+                return@launch
+            }
+
+            if (directory.isDirectory) {
+                val filesList = directory.listFiles()?.toList() ?: emptyList()
+
+                // Сортировка: сначала папки, потом файлы, и всё по имени
+                val sortedFiles = filesList.sortedWith(compareBy<File> { !it.isDirectory }.thenBy { it.name.lowercase() })
+
+                _files.value = sortedFiles
+                _currentPath.value = path
+            } else {
+                _files.value = emptyList()
+            }
         }
 
-        if (directory.isDirectory) {
-            val filesList = directory.listFiles()?.toList() ?: emptyList()
 
-            // Сортировка: сначала папки, потом файлы, и всё по имени
-            val sortedFiles = filesList.sortedWith(compareBy<File> { !it.isDirectory }.thenBy { it.name.lowercase() })
-
-            _files.value = sortedFiles
-            _currentPath.value = path
-        } else {
-            _files.value = emptyList()
-        }
     }
 
 

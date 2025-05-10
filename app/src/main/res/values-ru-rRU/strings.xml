@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">WearFiles</string>
     <string name="permission_alert">"В связи с ограничениями платформы Wear OS приложение не может выдать разрешение для доступа к файлам.\nВам необходимо сделать это вручную.\n\n1. Подключитесь к часам через ADB\n2. Выполните следующую команду:\nadb shell appops set --uid com.dertefter.wearfiles MANAGE_EXTERNAL_STORAGE allow\n3. Перезапустите приложение\n\nМне очень жаль, что вам приходится сталкиваться с такими неудобствами, однако это единственный способ заставить приложение работать."</string>
-    <string name="grant_permissions">Предоставить разрешения</string>
+    <string name="grant_permissions">Необходимы разрешения</string>
     <string name="back">Назад</string>
     <string name="delete">Удалить</string>
     <string name="cut">Вырезать</string>
@@ -20,5 +20,5 @@
     <string name="override_file">Этот файл уже существует.\nПерезаписать его?</string>
     <string name="open">Открыть</string>
     <string name="are_you_sure">Вы уверены?</string>
-    <string name="try_get_permissions">Gопробовать получить разрешение автоматически</string>
+    <string name="try_get_permissions">Попробовать предоставить разрешение без ПК</string>
 </resources>
